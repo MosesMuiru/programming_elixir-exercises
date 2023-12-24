@@ -8,7 +8,7 @@ defmodule Fizzing do
 
   def fizzing(n) do
 
-    case rem(n, 3) == 0 and rem(n, 5) do
+    case rem(n, 3) == 0 and rem(n, 5) == 0 do
 
       true -> "#{n} FizzBuzz"
       false ->
