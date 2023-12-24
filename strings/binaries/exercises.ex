@@ -13,15 +13,18 @@ defmodule Exercises do
 
   #a function that capitalises a sentense in a string
 
-  def capitalize_sentences(sentence) do
-    # change the sentence into a list
-    sentence_as_list = String.graphemes(sentence)
 
-    # check if there is a period so the the next two index should be capilized
-    Enum.each(sentence_as_list, fn word ->
-      if word == 
-    end)
-    # done
-  end
+def capitalize_sentences(str) do
+  sentences =
+    str
+    |> String.split(~r/\.\s/)
+    |> Enum.map(&capitalize_sentences/1)
 
+  Enum.join( sentences, ".") <> ". "
+end
+
+defp capitalize_sentence(sentence) do
+  sentence
+  |> String.replace_prefix!(&String.capitalize/1)
+end
 end
