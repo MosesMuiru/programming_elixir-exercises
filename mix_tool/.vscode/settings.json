@@ -1,0 +1,38 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "mmust",
+            "group": "mmust",
+            "database": "mmust",
+            "username": "root",
+            "password": "MyNewPass"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "1_learning_postgresql",
+            "database": "learningdb",
+            "username": "postgres",
+            "password": "welcome2"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "learning_postgres",
+            "database": "learningdb",
+            "username": "postgres",
+            "password": "welcome2"
+        }
+    ]
+}

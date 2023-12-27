@@ -1,5 +1,6 @@
 defmodule Issues.Cli do
   @default_count 4
+  import Issues.TableFormatter, only: [print_table_for_columns: 2]
 
   @moduledoc """
 
@@ -17,24 +18,24 @@ defmodule Issues.Cli do
   switch -- shows waht is passed like help: :boolean--thi should return
   """
   def parse_args(argv) do
-     OptionParser.parse(argv, switches: [ help: :boolean], aliases: [h: :help])
+    OptionParser.parse(argv, switches: [help: :boolean], aliases: [h: :help])
     # this is takes first element
 
-  |> elem(1)
-  |> args_to_internal_representation()
+    |> elem(1)
+    |> args_to_internal_representation()
 
-#     case parse do
-#       {[help: true ], _ , _ } -> :help
-#       { _, [user, project, count], _} -> { user, project, String.to_integer(count)}
-#       { _, [ user, project ], _ } -> { user, project, @default_count }
-# _ -> :help
+    #     case parse do
+    #       {[help: true ], _ , _ } -> :help
+    #       { _, [user, project, count], _} -> { user, project, String.to_integer(count)}
+    #       { _, [ user, project ], _ } -> { user, project, @default_count }
+    # _ -> :help
     # end
   end
 
   def process(:help) do
-    IO.puts """
+    IO.puts("""
     usage: issues <user> <project> [ count @default_count]
-    """
+    """)
 
     System.halt(0)
   end
@@ -44,18 +45,15 @@ defmodule Issues.Cli do
     |> decode_response()
     |> sort_into_desceding_order()
     |> last(count)
-    |> formatting()
+    |> print_table_for_columns(["number", "created_at", "title"])
   end
 
   def formatting(list_of_issues) do
     ~s{## | created_at | title}
     IO.puts("##_______ | created_at___________ | title_________")
+
     for issue <- list_of_issues do
-      IO.puts(" #{issue["id"]}        #{issue["created_at"]}        #{issue["title"] } ")
-
-
-
-
+      IO.puts(" #{issue["id"]}        #{issue["created_at"]}        #{issue["title"]} ")
     end
   end
 
@@ -67,27 +65,28 @@ defmodule Issues.Cli do
     |> Enum.reverse()
   end
 
-
   def sort_into_desceding_order(issues) do
     issues
-    |> Enum.sort(fn first_issue, second_issues -> first_issue["created_at"] >= second_issues["created_at"] end)
-
+    |> Enum.sort(fn first_issue, second_issues ->
+      first_issue["created_at"] >= second_issues["created_at"]
+    end)
   end
 
   # this is used to check the status of the return status
   #
-  def decode_response({:ok, body}) , do: body
-  def decode_response({:error, error})do
-    IO.puts "error opening the issues --- the error ---> #{error}"
+  def decode_response({:ok, body}), do: body
+
+  def decode_response({:error, error}) do
+    IO.puts("error opening the issues --- the error ---> #{error}")
     System.halt(2)
   end
 
   def args_to_internal_representation([user, project, count]) do
-    { user, project, String.to_integer(count)}
+    {user, project, String.to_integer(count)}
   end
 
   def args_to_internal_representation([user, project]) do
-    { user, project, @default_count}
+    {user, project, @default_count}
   end
 
   def args_to_internal_representation(_) do
