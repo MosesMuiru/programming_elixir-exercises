@@ -7,44 +7,35 @@ defmodule Multiple do
 
   # first process
 
-
-
   def spawn_process do
-      first_pid = spawn(&echo_token/0)
-      second_pid = spawn(&echo_token/0)
-
-      # sendin unique
-      send(first_pid, "mosess")
-      send(second_pid, "faurlll")
-
-      # receive token
-      first_token = receive_token(first_pid)
-      second_token = receive_token(second_pid)
-
-      # resuts
-
-      IO.puts("first  #{first_token} second #{second_token}")
-
-
-
-
+   spawn(Multiple, :the_process, ["1 - THE FIRST PROCESS"])
+   spawn(Multiple, :the_process, ["2 - THE SECOND PROCESS"])
   end
 
-  # for recieving the token and sending it back
-  def echo_token do
-    receive do
-      {:token, token} ->
-        IO.puts("the tokenn -----> #{token}")
-        send(self(), {:token, token})
+  def receive_token do
 
-    end
-  end
-
-  def receive_token(pid) do
     receive do
-      {:token, token} when self() == pid -> token
+      messo -> IO.puts(" meso after imeresendiwa#{messo} \n")
+
+    after
+      3000 -> "buda imakawia saana"
     end
   end
 
 
+  def the_process(token) do
+    # receive_token()
+    send(self(), "first time sending the token ---> #{token} \n")
+
+    receive do
+      messo -> IO.puts("nimepata hii messo ---> #{inspect messo} ---")
+      send(self(), "am resending thee meso ---> #{messo} <---")
+
+    after
+      3000 -> "buda imakawia saana"
+    end
+
+
+    receive_token()
+  end
 end
