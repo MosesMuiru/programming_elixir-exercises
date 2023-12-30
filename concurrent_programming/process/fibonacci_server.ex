@@ -61,8 +61,8 @@ Enum.each 1..10, fn num_process ->
 
 if num_process == 1 do
   IO.puts inspect result
-  IO.puts "\n# time(s)"
+  IO.puts "time(s)"
 end
 
-:IO.format "~2B ~.2f~n", [num_process, time/1000000.0]
+:IO.format "~2B  ~.2f~n", [num_process, time/1000000.0]
 end
