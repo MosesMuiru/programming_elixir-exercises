@@ -19,7 +19,7 @@ end
 
 
 # the sheuduler
-
+# htfjafa
 defmodule Scheduler do
   def run(num_process, module, func, to_calculate) do
     (1..num_process)
