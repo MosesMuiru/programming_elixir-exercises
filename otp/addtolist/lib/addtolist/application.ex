@@ -10,7 +10,7 @@ defmodule Addtolist.Application do
     children = [
       # Starts a worker by calling: Addtolist.Worker.start_link(arg)
       # {Addtolist.Worker, arg}
-      Addtolist, 
+      {Addtolist, 123}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

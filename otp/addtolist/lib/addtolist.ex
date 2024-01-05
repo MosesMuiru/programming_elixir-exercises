@@ -2,6 +2,8 @@ defmodule Addtolist do
  @doc """
   to increament a number
  """
+ @vsn "0"
+ use GenServer
 @me __MODULE__
  def start_link(current_number) do
 
@@ -25,7 +27,7 @@ def init(current_value) do
 end
 
 def handle_call(:next_number, _from, current_value) do
-  {:reply, current_value + 1, current_value}
+  {:reply, current_value, current_value + 1}
 end
 
 def handle_cast({:increment_value, number}, current_value) do
