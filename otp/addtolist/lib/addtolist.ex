@@ -19,7 +19,7 @@ defmodule Addtolist do
 
  end
 
-#  the server side of the this
+#  the server  this
 
 def init(current_value) do
 
