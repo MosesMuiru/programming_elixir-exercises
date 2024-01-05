@@ -8,7 +8,9 @@ defmodule Addtolist.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      Addtolist.start_link
+      # Starts a worker by calling: Addtolist.Worker.start_link(arg)
+      # {Addtolist.Worker, arg}
+      Addtolist, 
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

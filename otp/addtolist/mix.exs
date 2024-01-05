@@ -15,7 +15,7 @@ defmodule Addtolist.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Addtolist.Application, []}
+      mod: {Addtolist.Application, []},
     ]
   end
 
