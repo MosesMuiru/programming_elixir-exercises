@@ -2,7 +2,6 @@ defprotocol AnotherCaeser do
 
     @fallback_to_any true
     def encrypt(string, shift)
-
 end
 
 # the implementation should contain any and bitstring type
@@ -11,10 +10,7 @@ defimpl AnotherCaeser, for: [Bitstring, Any] do
         string
         |> String.graphemes()
         |> Enum.each(fn str -> string_position(str, shift) end)
-        
-   
     end
-
 
     def alphabet do
     "abcdefghijklmnopqrstuvwxyz"
@@ -31,8 +27,8 @@ defimpl AnotherCaeser, for: [Bitstring, Any] do
 
         value_to_be_replaced_with = get_string(shift_number)
 
-      String.to_charlist(  String.replace(string, string, value_to_be_replaced_with))
-      |>  IO.puts()
+        String.to_charlist(  String.replace(string, string, value_to_be_replaced_with))
+        |>  IO.puts()
     end
 # for getting the string in the position
     def get_string(position) do
